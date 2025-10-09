@@ -7,7 +7,7 @@ function soma(n1, n2)
     return valor;
 }
 
-console.log( soma(2, 3) );
+// console.log( soma(2, 3) );
 
 // func anonima
 let mult = function (n1, n2)
@@ -15,7 +15,7 @@ let mult = function (n1, n2)
     return n1 * n2;
 }
 
-console.log( mult(2, 3) );
+//console.log( mult(2, 3) );
 
 
 function calc(n1, n2, op)
@@ -24,5 +24,11 @@ function calc(n1, n2, op)
     console.log(resultado);
 }
 
-calc(3, 5, soma);
-calc(3, 5, mult);
+// calc(3, 5, soma);
+// calc(3, 5, mult);
+
+module.exports = {
+    soma,
+    calc,
+    mult
+}
