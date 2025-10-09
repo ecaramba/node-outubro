@@ -23,3 +23,6 @@ fs.readFile("teste.txt", "utf8", function(erro, texto) {
     console.log(erro, texto);
 })
 
+// modulo externo do node
+const csv = require("csv");
+
