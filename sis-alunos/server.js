@@ -1,5 +1,7 @@
 
 const express = require("express");
+const csv = require("csv/sync");
+const fs = require("fs");
 
 const app = express();
 
@@ -9,23 +11,32 @@ app.get("/", function(req, res){
 
 app.get("/listar", function(req, res){
 
-    let arquivo = __dirname + "/alunos.csv";
+    fs.readFile(__dirname + "/alunos.csv", "utf8", function(err, arquivo){
+        let dados = csv.parse(arquivo);
+        // matriz multidimensional
+        console.log(dados);
+        let tabela = "<table>"
+            +"<tr>"
+                +"<th>Nome</th>"
+                +"<th>Cidade</th>"
+                +"<th>Telefone</th>"
+            +"</tr>";
 
-    let tabela = "<table>"
-        +"<tr>"
-            +"<th>Month</th>"
-            +"<th>Savings</th>"
-        +"</tr>"
-        +"<tr>"
-            +"<td>January</td>"
-            +"<td>$100</td>"
-        +"</tr>"
-        +"<tr>"
-            +"<td>February</td>"
-            +"<td>$80</td>"
-        +"</tr>"
-        +"</table>";
+        for (let lin = 1; lin < dados.length; lin += 1 )
+        {
+            tabela +=
+            "<tr>"
+                +"<td>"+ dados[lin][0] +"</td>"
+                +"<td>"+ dados[lin][1] +"</td>"
+                +"<td>"+ dados[lin][2] +"</td>"
+            +"</tr>"
+        }
+        
+        tabela += "</table>";
+
         res.send(tabela);
+    });
+    
 
 });
 
