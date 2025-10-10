@@ -5,6 +5,9 @@ const fs = require("fs");
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", function(req, res){
     res.send("Pagina inicial")
 });
@@ -41,7 +44,17 @@ app.get("/listar", function(req, res){
 });
 
 app.get("/contato", function(req, res){
+    res.status(200);
     res.sendFile(__dirname + "/front/contato.html");
+});
+
+app.post("/cadastro", function(req, res){
+
+    let dados = req.body;
+
+    // console.log(dados);
+
+    res.json(dados);
 });
 
 app.listen(3000, function(){

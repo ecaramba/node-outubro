@@ -8,14 +8,21 @@
 <body>
     <h1>Pagina de Contato</h1>
 
-    <form>
+    <form action="/cadastro" method="post">
         <div>
             <label>Nome</label>
-            <input type="text" />
+            <input type="text" name="nome" />
         </div>
         <div>
-            <label>Email</label>
-            <input type="text" />
+            <label>Cidade</label>
+            <input type="text" name="cidade"/>
+        </div>
+        <div>
+            <label>Telefone</label>
+            <input type="text" name="telefone" />
+        </div>
+        <div>
+            <button type="submit">Enviar</button>
         </div>
     </form>
 </body>
