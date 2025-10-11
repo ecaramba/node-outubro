@@ -8,6 +8,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+const middle = function(req, res, next){
+    console.log(req.path);
+
+    next();
+}
+
+app.use(middle);
+
+
 app.get("/", function(req, res){
     res.send("Pagina inicial")
 });
@@ -17,7 +27,7 @@ app.get("/listar", function(req, res){
     fs.readFile(__dirname + "/alunos.csv", "utf8", function(err, arquivo){
         let dados = csv.parse(arquivo);
         // matriz multidimensional
-        console.log(dados);
+        // console.log(dados);
         let tabela = "<table>"
             +"<tr>"
                 +"<th>Nome</th>"
@@ -53,8 +63,15 @@ app.post("/cadastro", function(req, res){
     let dados = req.body;
 
     // console.log(dados);
+    let linha = dados.nome + "," + dados.cidade + "," + dados.telefone + "\n";
+    let arquivo = __dirname + "/alunos.csv"; 
 
-    res.json(dados);
+    fs.writeFile(arquivo, linha, { flag: 'a' }, function(erro){
+        console.log("gravado");
+    });
+
+    // res.send(linha);
+    res.redirect("/listar");
 });
 
 app.listen(3000, function(){
