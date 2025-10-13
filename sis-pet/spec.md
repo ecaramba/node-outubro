@@ -36,3 +36,4 @@
 - Persona -> Desenvolver web fullstack senior
 - Contexto -> é esse arquivo
 - Resultado -> Crie um arquivo para usar o express com as rotas necessarias para atender todos os requisitos solicitados
+- Exemplo -> 
