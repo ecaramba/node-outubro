@@ -12,12 +12,17 @@ M -> Model -> Database
 V -> View -> Frontend
 C -> Controller -> Backend
 
-CRUD
+CRUD -> DB
 
-Create -> Cadastro
-Read -> Listando
+Create -> Cadastro -> INSERT
+Read -> Listando -> SELECT
 Update -> Alterando
 Delete -> Apagar
+
+DBMS -> gerenciador de BD
+
+SQL -> Relacional -> Estruturado
+
 
 */
 
