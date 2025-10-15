@@ -1,2 +1,4 @@
 node_modules
 teste.txt
+*.db-shm
+*.db-wal

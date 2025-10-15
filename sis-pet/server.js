@@ -29,10 +29,34 @@ SQL -> Relacional -> Estruturado
 const express = require("express");
 const app = express();
 
-// listagem de todos
+app.use(express.static('frontend'));
+
+const sqlite = require("sqlite3");
+
+const db = new sqlite.Database('sis-pet.db');
+
+
+// pagina inicial
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/frontend/index.html");
 });
+
+// app.get("/:nome.js", function(req, res){
+//     let nome = req.params["nome"]
+//     res.sendFile(__dirname + "/frontend/"+ nome +".js");
+// });
+
+// listagem de todas agendas
+app.get("/agenda", function(req, res){
+
+    let sql = "SELECT * FROM agenda";
+
+    db.all(sql, function(err, dados){
+        res.json(dados)
+
+    });
+
+})
 
 // cadastro
 app.post("/agenda", function(req, res){
