@@ -108,7 +108,7 @@
             <h1 class="text-body-emphasis">Agenda do Dia</h1>
           
             <div>
-                <button class="btn btn-primary ">Novo Agendamento</button>
+                <button class="btn btn-primary "  data-bs-toggle="modal" data-bs-target="#modal-cadastro">Novo Agendamento</button>
             </div>
 
             <div class=" flex-column flex-md-row p-4 gap-4 py-md-5 justify-content-center">
@@ -121,6 +121,56 @@
         <footer class="pt-5 my-5 text-body-secondary border-top">
             Feita na Elaborata &middot; &copy; 2025 </footer>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="modal-cadastro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Agenda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" />
+        </div>
+        <div>
+            <label class="form-label">Tutor</label>
+            <input type="text" class="form-control" />
+        </div>
+        <div>
+            <label class="form-label">Data e Hora</label>
+            <input type="datetime-local" class="form-control" />
+        </div>
+        <div>
+            <label class="form-label">Profissional</label>
+            <select class="form-select">
+                <option></option>
+                <option>Paulo</option>
+                <option>Pedro</option>
+                <option>Ana</option>
+            </select>
+        </div>
+        <div>
+            <label class="form-label">Serviço</label>
+            <select id="servico" class="form-select">
+                <option value=""></option>
+                
+            </select>
+        </div>
+        <div>
+            <label class="form-label">Valor</label>
+            <input id="valor" type="text" class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Agendar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 
