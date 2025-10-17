@@ -36,14 +36,17 @@ $(document).ready(function(){
                 
                 let data = new Date(valor.datahora);
                 
-                let item = `<label class="list-group-item d-flex gap-3"> 
+                let item = `<label class="list-group-item d-flex justify-content-between gap-3"> 
+                
                 <input class="form-check-input flex-shrink-0"
                 type="checkbox" value="" style="font-size: 1.375em;"> 
                 <span class="pt-1 form-checked-content"> 
                 <strong> ${valor.nome} - ${valor.tutor} </strong> 
                 <small class="d-block text-body-secondary"> 
                 ${data.toLocaleDateString()}
-                </small> </span> </label>`;
+                </small> </span> 
+                <button class="btn btn-outline-danger"> <i class="bi bi-x-square-fill"></i> </button>
+                </label>`;
                 
                 
                 $("#agenda").append(item);

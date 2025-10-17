@@ -17,7 +17,7 @@ CRUD -> DB
 Create -> Cadastro -> INSERT
 Read -> Listando -> SELECT
 Update -> Alterando
-Delete -> Apagar
+Delete -> Apagar -> DELETE
 
 DBMS -> gerenciador de BD
 
@@ -95,8 +95,20 @@ app.post("/agenda/atualizar", function(req, res){
 });
 
 // deletar
-app.post("/agenda/deletar", function(req, res){
-    res.send("foi");
+app.post("/agenda/deletar/:id", function(req, res){
+    let id = req.params["id"]
+    let sql = "DELETE  FROM agenda WHERE id = ?";
+
+    db.run(sql, [id], function(erro){
+        if (erro != null) {
+            res.status(500);
+            res.json(erro);
+        } else {
+            res.status(200);
+            res.json(this)
+        }
+    });
+
 });
 
 app.listen(3000, function(){
