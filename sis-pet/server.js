@@ -31,6 +31,9 @@ const app = express();
 
 app.use(express.static('frontend'));
 
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 const sqlite = require("sqlite3");
 
 const db = new sqlite.Database('sis-pet.db');
@@ -60,7 +63,29 @@ app.get("/agenda", function(req, res){
 
 // cadastro
 app.post("/agenda", function(req, res){
-    res.send("foi");
+    let dados = req.body;
+
+    let sql = `INSERT INTO agenda ( nome, tutor, datahora, profissional, servico, valor)
+            VALUES (?, ?, ?, ?, ?, ?)`;
+    
+    
+    db.run(sql, [dados.nome, 
+        dados.tutor, 
+        dados.datahora, 
+        dados.profissional,
+        dados.servico,
+        dados.valor
+        ], function(erro){
+
+        if (erro != null) {
+            res.status(500);
+            res.json(sql);
+        } else {
+            res.status(201);
+            res.json(this)
+        }
+    });
+
 });
 
 
