@@ -61,6 +61,52 @@ $(document).ready(function(){
     }); //fim do change
 
     $("#bt-agendar").click(function(){
+
+        let erro = false;
+
+        $('#modal-cadastro input, #modal-cadastro select').removeClass("is-invalid");
+
+        if ($("#nome").val().length < 3)
+        {
+            $("#nome").addClass("is-invalid");
+            erro = true;
+        }
+
+        if ($("#tutor").val() < 3)
+        {
+            $("#tutor").addClass("is-invalid");
+            erro = true;
+        }
+
+        if ($("#datahora").val() == "")
+        {
+            $("#datahora").addClass("is-invalid");
+            erro = true;
+        }
+
+        if ($("#profissional").val() == "")
+        {
+            $("#profissional").addClass("is-invalid");
+            erro = true;
+        }
+
+        if ($("#servico").val() == "")
+        {
+            $("#servico").addClass("is-invalid");
+            erro = true;
+        }
+
+        if ($("#valor").val() == "")
+        {
+            $("#valor").addClass("is-invalid");
+            erro = true;
+        }
+
+        if (erro == true) {
+            return false;
+        }
+
+
         let servico_sel = $("#servico").val();
         let dados = {
             nome: $("#nome").val(),
