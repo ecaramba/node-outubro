@@ -45,7 +45,7 @@ $(document).ready(function(){
                 <small class="d-block text-body-secondary"> 
                 ${data.toLocaleDateString()}
                 </small> </span> 
-                <button class="btn btn-outline-danger"> <i class="bi bi-x-square-fill"></i> </button>
+                <button petId="${valor.id}" class="btn btn-outline-danger bt-del"> <i class="bi bi-x-square-fill"></i> </button>
                 </label>`;
                 
                 
@@ -124,5 +124,17 @@ $(document).ready(function(){
             $("#modal-cadastro").modal('hide');
             listarTudo();
         });
+    }); //fim do bt-agendar
+
+    $("#agenda").on('click', '.bt-del', function(){
+        let id = $(this).attr('petId');
+
+        $.post('/agenda/deletar/'+id, function(res){
+            console.log(res);
+            listarTudo();
+            location.href = "#topo";
+
+            $("#alert-msg").removeClass("d-none");
+        })
     });
 });

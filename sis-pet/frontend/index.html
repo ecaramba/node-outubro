@@ -106,13 +106,18 @@
             <strong>Sistema para Pet</strong> <a href="#">Login</a>
         </header>
         <main>
-            <h1 class="text-body-emphasis">Agenda do Dia</h1>
+            <h1 id="topo" class="text-body-emphasis">Agenda do Dia</h1>
           
             <div>
                 <button class="btn btn-primary "  data-bs-toggle="modal" data-bs-target="#modal-cadastro">Novo Agendamento</button>
             </div>
 
             <div class=" flex-column flex-md-row p-4 gap-4 py-md-5 justify-content-center">
+
+                <div id="alert-msg" class="alert alert-success d-none" role="alert">
+                O agendamento foi deletado com sucesso!
+                </div>
+
                 <div id="agenda" class="list-group"> 
                 
                 </div>
