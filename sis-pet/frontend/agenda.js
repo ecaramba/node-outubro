@@ -43,7 +43,7 @@ $(document).ready(function(){
                 <span class="pt-1 form-checked-content"> 
                 <strong> ${valor.nome} - ${valor.tutor} </strong> 
                 <small class="d-block text-body-secondary"> 
-                ${data.toLocaleDateString()}
+                ${data.toLocaleString()}
                 </small> </span> 
                 <button petId="${valor.id}" class="btn btn-outline-danger bt-del"> <i class="bi bi-x-square-fill"></i> </button>
                 </label>`;
