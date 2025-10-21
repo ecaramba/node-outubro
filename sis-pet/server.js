@@ -28,6 +28,13 @@ SQL -> Relacional -> Estruturado
 
 const express = require("express");
 const app = express();
+const exssession = require("express-session")
+
+app.use(exssession({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use(express.static('frontend'));
 
@@ -41,7 +48,48 @@ const db = new sqlite.Database('sis-pet.db');
 
 // pagina inicial
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "/frontend/index.html");
+
+    if (!req.session.logado) {
+        res.redirect("/login");
+    } else {
+        res.sendFile(__dirname + "/frontend/lista.html");
+    }
+});
+
+app.get("/login", function(req, res){
+    console.log(req.session)
+    res.sendFile(__dirname + "/frontend/login.html");
+
+});
+
+app.get("/logout", function(req,res){
+    req.session.destroy();
+    res.redirect("/login");
+});
+
+app.post("/login", function(req, res){
+
+    // let email = req.body.email;
+    // let senha = req.body.senha;
+    let {email, senha} = req.body
+
+    let sql = `SELECT * FROM usuario WHERE email = ? AND senha = ?`;
+
+    db.get(sql, [email, senha], function(erro, retorno){
+
+        if (retorno == null)
+        {
+            res.json('senha incorreta')
+        } else {
+
+            req.session.logado = true;
+
+            res.redirect("/");
+        }
+        
+    });
+
+    
 });
 
 // app.get("/:nome.js", function(req, res){
