@@ -45,7 +45,10 @@ $(document).ready(function(){
                 <small class="d-block text-body-secondary"> 
                 ${data.toLocaleString()}
                 </small> </span> 
+                <div>
+                <button petId="${valor.id}" class="btn btn-outline-info bt-editar"> <i class="bi bi-pencil"></i> </button>
                 <button petId="${valor.id}" class="btn btn-outline-danger bt-del"> <i class="bi bi-x-square-fill"></i> </button>
+                </div>
                 </label>`;
                 
                 
@@ -136,5 +139,34 @@ $(document).ready(function(){
 
             $("#alert-msg").removeClass("d-none");
         })
-    });
+    });// fim do bt-del
+
+    $("#agenda").on('click', '.bt-editar', function(){
+        let id = $(this).attr('petId');
+
+        $("#modal-cadastro").modal('show');
+
+        $.getJSON("/agenda/"+id, function(dados){
+            console.log(dados)
+
+            let pos = servicos.findIndex(function(valor) {
+                if (valor.nome == dados.servico)
+                {
+                    return true;
+                }
+            })
+
+            console.log(pos);
+
+            $("#nome").val(dados.nome);
+            $("#tutor").val(dados.tutor);
+            $("#datahora").val(dados.datahora);
+            $("#servico").val(pos);
+            $("#profissional").val(dados.profissional);
+            $("#valor").val(dados.valor);
+
+        }); // fim do getJson
+
+    }); // Fim do bt-editar
+
 });

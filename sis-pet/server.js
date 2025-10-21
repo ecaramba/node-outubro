@@ -59,7 +59,31 @@ app.get("/agenda", function(req, res){
 
     });
 
-})
+});
+
+app.get("/agenda/:id", function(req, res){
+
+    let id = req.params["id"]
+    let sql = "SELECT * FROM agenda WHERE id = ?";
+    
+    db.get(sql, [id], function(erro, agenda){
+        
+        if (erro != null) {
+            res.status(500);
+            res.json(erro);    
+        } 
+
+        if (!agenda)
+        {
+            res.status(404).send("");
+        } 
+        
+        res.json(agenda);
+        
+
+    });
+
+});
 
 // cadastro
 app.post("/agenda", function(req, res){
