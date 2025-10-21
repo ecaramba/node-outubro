@@ -16,7 +16,7 @@ CRUD -> DB
 
 Create -> Cadastro -> INSERT
 Read -> Listando -> SELECT
-Update -> Alterando
+Update -> Alterando -> UPDATE
 Delete -> Apagar -> DELETE
 
 DBMS -> gerenciador de BD
@@ -114,8 +114,33 @@ app.post("/agenda", function(req, res){
 
 
 // atualização
-app.post("/agenda/atualizar", function(req, res){
-    res.send("foi");
+app.post("/agenda/atualizar/:id", function(req, res){
+
+    let id = req.params["id"];
+    let dados = req.body;
+
+    let sql = `UPDATE agenda
+        SET nome = ?, tutor = ?, datahora = ?, profissional = ?, servico = ?, valor = ?
+        WHERE id = ?`;
+    
+        db.run(sql, [
+        dados.nome, 
+        dados.tutor, 
+        dados.datahora, 
+        dados.profissional,
+        dados.servico,
+        dados.valor,
+        id
+        ], function(erro){
+
+        if (erro != null) {
+            res.status(500);
+            res.json(sql);
+        } else {
+            res.status(200);
+            res.json(this)
+        }
+    });
 });
 
 // deletar

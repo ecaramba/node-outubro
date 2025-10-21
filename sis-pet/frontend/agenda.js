@@ -123,10 +123,21 @@ $(document).ready(function(){
             valor: $("#valor").val(),
         };
 
-        $.post('/agenda', dados, function(res){
-            $("#modal-cadastro").modal('hide');
-            listarTudo();
-        });
+        let idAgenda = $("#idAgenda").val();
+
+        if (idAgenda == "")
+        {
+            $.post('/agenda', dados, function(res){
+                $("#modal-cadastro").modal('hide');
+                listarTudo();
+            });
+        } else {
+            console.log('edit')
+            $.post('/agenda/atualizar/' + idAgenda, dados, function(res){
+                $("#modal-cadastro").modal('hide');
+                listarTudo();
+            });
+        }
     }); //fim do bt-agendar
 
     $("#agenda").on('click', '.bt-del', function(){
@@ -156,7 +167,6 @@ $(document).ready(function(){
                 }
             })
 
-            console.log(pos);
 
             $("#nome").val(dados.nome);
             $("#tutor").val(dados.tutor);
@@ -164,6 +174,7 @@ $(document).ready(function(){
             $("#servico").val(pos);
             $("#profissional").val(dados.profissional);
             $("#valor").val(dados.valor);
+            $("#idAgenda").val(dados.id);
 
         }); // fim do getJson
 
