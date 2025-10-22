@@ -29,6 +29,9 @@ SQL -> Relacional -> Estruturado
 const express = require("express");
 const app = express();
 const exssession = require("express-session")
+const sha1 = require("sha1");
+const basicAuth = require('express-basic-auth')
+const sqlite = require("sqlite3");
 
 app.use(exssession({
     secret: 'keyboard cat',
@@ -41,10 +44,21 @@ app.use(express.static('frontend'));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-const sqlite = require("sqlite3");
-
 const db = new sqlite.Database('sis-pet.db');
 
+
+
+let logado = function (user, senha, cb)
+{
+    let sql = `SELECT * FROM usuario WHERE email = ? AND senha = ?`;
+    db.get(sql, [user, sha1(senha)], function(erro, retorno)
+    {
+        // authorizer(username, password, cb) -> cb(error, authorized)
+        cb(null, retorno != null);
+    });
+}
+
+let basic = basicAuth({ authorizer: logado, authorizeAsync: true });
 
 // pagina inicial
 app.get("/", function(req, res){
@@ -75,7 +89,7 @@ app.post("/login", function(req, res){
 
     let sql = `SELECT * FROM usuario WHERE email = ? AND senha = ?`;
 
-    db.get(sql, [email, senha], function(erro, retorno){
+    db.get(sql, [email, sha1(senha)], function(erro, retorno){
 
         if (retorno == null)
         {
@@ -98,7 +112,7 @@ app.post("/login", function(req, res){
 // });
 
 // listagem de todas agendas
-app.get("/agenda", function(req, res){
+app.get("/agenda", basic, function(req, res){
 
     let sql = "SELECT * FROM agenda";
 
@@ -109,7 +123,7 @@ app.get("/agenda", function(req, res){
 
 });
 
-app.get("/agenda/:id", function(req, res){
+app.get("/agenda/:id", logado, function(req, res){
 
     let id = req.params["id"]
     let sql = "SELECT * FROM agenda WHERE id = ?";
